@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  webapi:
+    build:
+      context: .
+      dockerfile: Travel.WebApi/Dockerfile
+    image: travel.webapi:local
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - DOTNET_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=tcp:sqlserver,1433;Initial Catalog=TravelDb;User Id=sa;Password=Your_strong_Password123;
+      - RabbitMQ__HostName=rabbitmq
+      - RabbitMQ__UserName=guest
+      - RabbitMQ__Password=guest
+    depends_on:
+      - rabbitmq
+      - sqlserver
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672" # management UI
+      - "5672:5672"   # AMQP
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "Your_strong_Password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Your_strong_Password123", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+volumes:
+  mssql-data:

@@ -1,0 +1,74 @@
+# Build outputs
+/bin/
+/obj/
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Dotnet local tools
+.dotnet/
+
+# NuGet
+*.nupkg
+.project.lock.json
+packages/
+
+# Publish output
+publish/
+
+# EF Core Migrations (optional - keep if you want migrations checked in)
+# Travel.WebApi/Data/Migrations/
+
+# Local settings
+appsettings.Development.json
+secrets.json
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+**/docker-compose.override.yml
+
+# JetBrains Rider helpers
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test results
+TestResults/
+
+# Coverage
+coverage*/
+*.coverage
+*.coveragexml
+
+# Misc
+*.pid
+*.seed
+
