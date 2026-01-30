@@ -3,7 +3,7 @@
 ## How to Run the Service
 
 0. **Prerequisites**
-   - .NET 9.0 SDK
+   - .NET 8.0 SDK
    - PostgreSQL database
    - RabbitMQ server
    - Docker (optional, for containerized deployment)
