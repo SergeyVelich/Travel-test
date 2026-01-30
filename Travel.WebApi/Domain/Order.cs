@@ -8,5 +8,5 @@ public class Order
     public decimal TotalAmount { get; set; }
     public OrderStatuses Status { get; set; }
 
-    public ICollection<Item> Items { get; set; } = [];
+    public ICollection<OrderItem> Items { get; set; } = [];
 }

@@ -17,5 +17,10 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
         builder.Property(i => i.Price)
             .HasPrecision(18, 2)
             .IsRequired();
+
+        builder.HasMany(i => i.OrderItems)
+               .WithOne(oi => oi.Item)
+               .HasForeignKey(oi => oi.ItemId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

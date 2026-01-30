@@ -1,8 +1,8 @@
 using System;
 using Travel.WebApi.Domain;
-using Travel.WebApi.Models;
+using Travel.WebApi.WebApi.Models;
 
-namespace Travel.WebApi.Services;
+namespace Travel.WebApi.WebApi;
 
 public interface IMapper
 {
@@ -19,7 +19,6 @@ public class Mapper : IMapper
         {
             CustomerId = request.CustomerId,
             OrderDate = DateTime.UtcNow,
-            TotalAmount = request.TotalAmount,
             Status = OrderStatuses.New
         };
 
@@ -31,17 +30,20 @@ public class Mapper : IMapper
             }
         }
 
+        entity.TotalAmount = entity.Items.Sum(i => i.Price * i.Quantity);
+
         return entity;
     }
 
-    public Item ToDomainModel(OrderItemRequest request)
+    public OrderItem ToDomainModel(OrderItemRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        var entity = new Item
+        var entity = new OrderItem
         {
-            Name = request.Name,
-            Price = request.Price
+            ItemId = request.Id,
+            Price = request.Price,
+            Quantity = request.Quantity
         };
 
         return entity;

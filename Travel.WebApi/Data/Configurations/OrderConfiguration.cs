@@ -14,7 +14,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .IsRequired();
 
         builder.Property(o => o.OrderDate)
-            .HasDefaultValueSql("GETUTCDATE()")
+            .HasDefaultValueSql("NOW()")
             .IsRequired();
 
         builder.Property(o => o.TotalAmount)
@@ -27,8 +27,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasDefaultValue(OrderStatuses.New);
 
         builder.HasMany(o => o.Items)
-               .WithOne()
-               .HasForeignKey(i => i.OrderId)
-               .IsRequired();
+               .WithOne(oi => oi.Order)
+               .HasForeignKey(oi => oi.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }
